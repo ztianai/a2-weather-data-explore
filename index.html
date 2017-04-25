@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 Weather Data Exploration</title>
+
+    <!-- Libraries -->
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.4/d3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.js"></script>
+    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
+
+    <!-- Custom files -->
+    <link rel="stylesheet" href="css/main.css" />
+
+    <!-- your script file -->
+    <script src="js/main.js"></script>
+</head>
+
+<body class="container">
+    <h1>Welcome to U.S. City Weather Report</h1>
+    <h4>In the above cities, choose the one you would like to explore and then choose whether you want to see its average maximum temperature, average minimum temperature or average precipitation of the year. You can also compare the average max and min temperature of the given city. Currently, it is showing the average maximum temperature in Seattle, WA. Hover over the graph for more information.</h4>
+    <p>Source: <a href="https://www.wunderground.com">Weather Underground</a> and <a href="https://github.com/fivethirtyeight/data/tree/master/us-weather-history">FiveThirtyEight Data</a>
+
+    <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary active">
+	    <input value="Seattle, WA" class="city" type="radio" name="options" id="option1" autocomplete="off" checked>Seattle
+	  </label>
+        <label class="btn btn-primary">
+	    <input value="Los Angeles, CA" type="radio" class="city" name="options" id="option2" autocomplete="off">Los Angeles
+	  </label>
+        <label class="btn btn-primary">
+        <input value="Houston, TX" type="radio" class="city" name="options" id="option3" autocomplete="off">Houston
+      </label>
+        <label class="btn btn-primary">
+        <input value="Indianapolis, IN" type="radio" class="city" name="options" id="option4" autocomplete="off">Indianapolis
+      </label>
+    </div>
+
+    <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary">
+	    <input value = "min" type="radio" name="options" id="option1" autocomplete="off">Average Minimum Temperature
+	  </label>
+        <label class="btn btn-primary active">
+	    <input value = "max" type="radio" name="options" id="option2" autocomplete="off" checked>Average Maximum Temperature
+	  </label>
+        <label class="btn btn-primary">
+        <input value = "precipitation" type="radio" name="options" id="option1" autocomplete="off">Average Precipitation
+      </label>
+        <label class="btn btn-primary">
+        <input value = "min/max" type="radio" name="options" id="option1" autocomplete="off">Average Max VS MIN
+      </label>
+    </div>
+    <div id="vis"></div>
+
+    <div class="jumbotron container">
+        <h2>Explanations of My Choices</h2>
+        <p>For this data visualization, the main goal is to show the different temperatures and percipitation at different cities. For my visual layout, I have mainly the bar graphs and an extra line graph to show some other information. Since the dataset contains data from every single day of a year, I would like to show these data in the visualization so that people can better observe the trends in the temperature changes. At first, I only have the bar chart, since with so many data, line chart is hard to perceive the information, while bar chart can allow users to perceive the changes more directly. I also had same color bars at the beginning, but in order to express the data more effectively, I used different colors on different months so that people can perceive the 12 different months more easily. Instead of labeling every single day on the x-axis, I labeled them by weekly, so that enough information are shown, and x-axis is not overcrowded. Due to limitation on the x-axis labels, I included a tip on every bar, which shows the date information, and the specific temperature or percipitation on that day if users hover over the bars. I think with the tips, the by weekly x-axis labels(from January to December), and bars with different colors, users are able to separate the data into smaller trunks, and can easily perceive the length difference of the bars to compare temperatures.</p> 
+
+        <p>EXTRA: I added the line chart at the end as an extra attempt to the assignment, mainly thinking that it is a good way to show both max and min temperature on one graph, and users have the ability to compare the two temperatures at a given day more directly. If I used bar charts for this comparison, there will be so many bars on the graph and make it hard for users to compare. By having the line chart, users can easily perceive the general trends of the temperature, which is similar to the bar chart, but they can also compare min and max at the same time, so it can give more information to the users. For the line chart, I used the same x-axis labels, and both lines include hover functionality. Users have the ability to hover each line, and see the temperature of that day, which is also labeled as either max temp or min temp on the tip. I think overall my visual layout was a great choice for expressing my data effectively, since users can easily perceive the average temperature and percipitation information of a whole year.</p>
+
+        <p>For this visualization, I have many control elements to filter down the dataset. There are mainly two parts, city and specific weather information. For the city controls, users have the ability to choose between 4 cities in the U.S. and explore the weather history of the specific location. Users might be moving to a different city and want to explore the weather condition of the new city. Or the users is planning a trip and would like to get more information of the destination city and the weather trend over some period of month. The second general control contains multiple control elements: average maximum temperature, average minimum temperature, average percipitation, and comparison between max and min temperature. Average maximum temperature allow users to answer questions like what's the maximum temperature of a city throughout the year; which months' max temperature is between 70 and 80 fahrenheit; if I go travel during a specific month, what's the average temperature so that I can pack the right clothes; overall does the temperature changes much throughout the year. For average minimum temperature, questions that can be answered are similar to average max temperature, just focus on minimum temperature instead. For average percipitation, users can find answers about what's best month to visit the city so that there's less chance of rain; how much snow or rain does the city has over winter or summer; I am planning to visit the city during a specific month, should I pack my umbrella in case of rain there. For the max and min temperature comparison, it enables users to compare the two temperatures and understand whether there is a huge difference in the max and min temperature of a given day, if there is then users need to pack different clothes or make other adjustments.</p>
+
+        <p>Some insights I got through observing the visualization: Among the 4 cities, Indianapolis has the greatest difference between the highest and lowest of max temperature. The highest temperature is 85°F in July, and the lowest is 35°F in January, which lead to a difference of 50°F. While Los Angeles has the least difference, with 85°F as the highest, and 67°F as the lowest, leading to a difference of 18°F. For percipitation, Los Angeles has more percipitation in February; Seattle has more percipitation from November to January; Houston has more during June; and in Indianapolis, May and July have slightly more percipitation. Overall, Houston and Indianapolis have more average precipitation throughout the year compare to Seattle and Los Angeles. Among 4 cities, the difference between min and max temperature of a given day is pretty constant expect for Seattle. During winter time, the difference is around 10°F while in summer the difference is around 20°F. Among the 4 cities, Houston has the highest average maximum temperature, which is 95°F in August. Among the 4 cities, Indianapolis has the lowest average minimum termperature which is 20°F in winter times.</p>
+    </div>
+
+</body>
+
+</html>
